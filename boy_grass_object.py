@@ -1,5 +1,6 @@
 from pico2d import *
 import random
+import math
 
 
 # Game object class here
@@ -25,13 +26,26 @@ class Boy:
 class Ball:
     def __init__(self):
         self.x, self.y = random.randint(50,750), random.randint(100,200)
+        self.speed = random.randint(1, 10)
+        self.size = random.randint(21, 40)
+        self.top_y = get_canvas_height() - self.size / 2 - 5
+        self.floating = False
+        self.bob_phase = 0.0
+        self.bob_amplitude = random.randint(8, 15)
+        self.bob_speed = random.uniform(0.08, 0.15)
         self. frame = random.randint(0,20)
         self.image = load_image('ball21x21.png')
     def update(self):
         self.frame = random.randint(0,10)
-        self.y += random.randint(0,10)
+        if not self.floating:
+            self.y = min(self.y + self.speed, self.top_y)
+            if self.y >= self.top_y:
+                self.floating = True
+        else:
+            self.bob_phase = (self.bob_phase + self.bob_speed) % math.tau
+            self.y = self.top_y - self.bob_amplitude * (1 - math.cos(self.bob_phase))
     def draw(self):
-        self.image.clip_draw(random.randint(0, 5), random.randint(0, 5), random.randint(21,40),random.randint(21,40), self.x,self.y)
+        self.image.draw(self.x, self.y, self.size, self.size)
 
 def reset_world():
     global running
