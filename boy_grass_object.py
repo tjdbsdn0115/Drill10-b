@@ -24,11 +24,14 @@ class Boy:
         
 class Ball:
     def __init__(self):
+        self.x, self.y = 400, 90
+        self. frame = 0
         self.image = load_image('ball21x21.png')
-    def draw(self):
-        self.image.draw(400, 400)
     def update(self):
-        pass
+        self.frame = 0
+        self.y += 5
+    def draw(self):
+        self.image.clip_draw(0, 0, 21, 21, self.x,self.y)
 
 def reset_world():
     global running
