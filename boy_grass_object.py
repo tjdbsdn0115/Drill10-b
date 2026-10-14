@@ -25,13 +25,13 @@ class Boy:
 class Ball:
     def __init__(self):
         self.x, self.y = random.randint(50,750), random.randint(100,200)
-        self. frame = 0
+        self. frame = random.randint(0,20)
         self.image = load_image('ball21x21.png')
     def update(self):
-        self.frame = 0
-        self.y += 5
+        self.frame = (self.frame + 1) % 21
+        self.y += random.randint(0,30)
     def draw(self):
-        self.image.clip_draw(0, 0, 21, 21, self.x,self.y)
+        self.image.clip_draw(random.randint(0, 5), random.randint(0, 5), random.randint(21,100),random.randint(21,100), self.x,self.y)
 
 def reset_world():
     global running
