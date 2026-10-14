@@ -28,10 +28,10 @@ class Ball:
         self. frame = random.randint(0,20)
         self.image = load_image('ball21x21.png')
     def update(self):
-        self.frame = (self.frame + 1) % 21
-        self.y += random.randint(0,30)
+        self.frame = random.randint(0,10)
+        self.y += random.randint(0,10)
     def draw(self):
-        self.image.clip_draw(random.randint(0, 5), random.randint(0, 5), random.randint(21,100),random.randint(21,100), self.x,self.y)
+        self.image.clip_draw(random.randint(0, 5), random.randint(0, 5), random.randint(21,40),random.randint(21,40), self.x,self.y)
 
 def reset_world():
     global running
